@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Review</title>
+
+  <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+  <script src="https://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/popper"></script>
+  <script src="https://unpkg.com/bootstrap"></script>
+  <script src="/static/script.js"></script>
+
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="/static/stylesheets/style.css">
+  <link rel="shortcut icon" href="/static/logo.png">
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+<nav class="navbar navbar-expand">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand">
+        <img src="/static/images/small-logo.png"  width ="40" height = "40" alt="logo">
+        <span>Movie Review</span>
+      </a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      {% if not g.user %}
+      <li><a href="/signup">Sign up</a></li>
+      <li><a href="/login">Log in</a></li>
+      {% else %}
+      {% endif %}
+    </ul>
+
+  </div>
+</nav>
+
+<div class="container pt-4">
+  <div class="jumbotron">
+      <h3 class="text-center p-4">Search For Any Movie</h3>
+      <form method="get" action="search" id="searchForm">
+          <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                  <div class="input-group-text">🔍</div>
+              </div>
+              <input
+                  type="text"
+                  class="form-control pt-2"
+                  id="searchText"
+                  placeholder="Search Movies..."
+              />
+              <button type="submit">Search</button>
+          </div>
+
+
+<div class="container">
+  {% for category, message in get_flashed_messages(with_categories=True) %}
+  <div class="alert alert-{{ category }}">{{ message }}</div>
+  {% endfor %}
+
+  {% block content %}
+  {% endblock %}
+
+</div>
+</body>
+</html>
