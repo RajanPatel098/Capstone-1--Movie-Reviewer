@@ -170,6 +170,11 @@ body {
     width: 100%;
   }
   
+  #button {
+    margin: 0 auto 10px;
+    width: 80%;
+
+  }
   #profile-avatar {
     width: 200px;
     height: 200px;

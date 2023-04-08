@@ -10,7 +10,6 @@
   <script src="https://unpkg.com/jquery"></script>
   <script src="https://unpkg.com/popper"></script>
   <script src="https://unpkg.com/bootstrap"></script>
-  <script src="/static/script.js"></script>
 
   <link rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
@@ -38,23 +37,53 @@
   </div>
 </nav>
 
-<div class="container pt-4">
-  <div class="jumbotron">
-      <h3 class="text-center p-4">Search For Any Movie</h3>
-      <form method="get" action="search" id="searchForm">
-          <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                  <div class="input-group-text">🔍</div>
-              </div>
-              <input
-                  type="text"
-                  class="form-control pt-2"
-                  id="searchText"
-                  placeholder="Search Movies..."
-              />
-              <button type="submit">Search</button>
-          </div>
+<div class = "search-container">
+  <div class = "search-element">
+      <h3>Search Movie:</h3>
+      <input type = "text" class = "form-control" placeholder="Search Movie Title ..." id = "movie-search-box" onkeyup="findMovies()" onclick = "findMovies()">
 
+      <div class = "search-list" id = "search-list">
+          <!-- list here -->
+          <!-- <div class = "search-list-item">
+              <div class = "search-item-thumbnail">
+                  <img src = "medium-cover.jpg">
+              </div>
+              <div class = "search-item-info">
+                  <h3>Guardians of the Galaxy Vol. 2</h3>
+                  <p>2017</p>
+              </div>
+          </div> -->
+      </div>
+  </div>
+</div>
+
+     <!-- result container -->
+     <div class = "container">
+      <div class = "result-container">
+          <div class = "result-grid" id = "result-grid">
+              <!-- movie information here -->
+              <!-- <div class = "movie-poster">
+                  <img src = "medium-cover.jpg" alt = "movie poster">
+              </div>
+              <div class = "movie-info">
+                  <h3 class = "movie-title">Guardians of the Galaxy Vol. 2</h3>
+                  <ul class = "movie-misc-info">
+                      <li class = "year">Year: 2017</li>
+                      <li class = "rated">Ratings: PG-13</li>
+                      <li class = "released">Released: 05 May 2017</li>
+                  </ul>
+                  <p class = "genre"><b>Genre:</b> Action, Adventure, Comedy</p>
+                  <p class = "writer"><b>Writer:</b> James Gunn, Don Abnett, Andy Lanning</p>
+                  <p class = "actors"><b>Actors: </b>Chris Pratt, Zoe Saldana, Dave Bautista</p>
+                  <p class = "plot"><b>Plot:</b> The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's ecounter with his father the ambitious celestial being Ego.</p>
+                  <p class = "language"><b>Language:</b> English</p>
+                  <p class = "awards"><b><i class = "fas fa-award"></i></b> Nominated for 1 Oscar</p>
+              </div> -->
+          </div>
+      </div>
+  </div>
+  <!-- end of result container -->
+</div>
 
 <div class="container">
   {% for category, message in get_flashed_messages(with_categories=True) %}
@@ -65,5 +94,8 @@
   {% endblock %}
 
 </div>
+
+    <!-- movie app js -->
+    <script src = "static/script.js"></script>
 </body>
 </html>

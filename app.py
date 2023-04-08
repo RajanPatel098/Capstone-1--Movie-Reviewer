@@ -30,10 +30,7 @@ def home():
         response.raise_for_status()
         print(response)
 
-        json_data = json.loads(response.text)
 
-        print(json_data['year'], json_data['Rated'], json_data['Released'])
-        return render_template("base.html",info=MovieInfo)
 
     return render_template("base.html")
 
