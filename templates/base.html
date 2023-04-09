@@ -22,7 +22,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a href="/" class="navbar-brand">
-        <img src="/static/images/small-logo.png"  width ="40" height = "40" alt="logo">
+        <img src="/static/images/small-logo.png"  width ="60" height = "40" alt="logo">
         <span>Movie Review</span>
       </a>
     </div>
@@ -31,6 +31,7 @@
       <li><a href="/signup">Sign up</a></li>
       <li><a href="/login">Log in</a></li>
       {% else %}
+      <li><a href="/logout">Log out</a></li>
       {% endif %}
     </ul>
 
@@ -40,7 +41,7 @@
 <div class = "search-container">
   <div class = "search-element">
       <h3>Search Movie:</h3>
-      <input type = "text" class = "form-control" placeholder="Search Movie Title ..." id = "movie-search-box" onkeyup="findMovies()" onclick = "findMovies()">
+      <input type = "text" class = "form-control" placeholder="Search Movie Title ..." id = "movie-search-box" onkeyup="findMovies()" onclick = "findMovies()" >
 
       <div class = "search-list" id = "search-list">
           <!-- list here -->
@@ -84,6 +85,11 @@
   </div>
   <!-- end of result container -->
 </div>
+
+
+
+
+
 
 <div class="container">
   {% for category, message in get_flashed_messages(with_categories=True) %}

@@ -23,14 +23,10 @@ API_KEY= "78ff9c4d"
 # movie = GetMovie(api_key='78ff9c4d')  -> gives all info using omdbapi 
 
 @app.route('/',methods=["POST","GET"])
-def home():
+def index():
     if request.method == "POST":
-        title = request.args.get('title')
-        response = requests.get('https://www.omdbapi.com/?t={title}&apikey={API_KEY}')
-        response.raise_for_status()
-        print(response)
-
-
+        title = {details.title}
+        db.session.add(title)
 
     return render_template("base.html")
 
@@ -78,7 +74,7 @@ def signup():
                 username=form.username.data,
                 password=form.password.data,
                 email=form.email.data,
-                image_url=form.image_url.data or User.image_url.default.arg,
+
             )
             db.session.commit()
 
