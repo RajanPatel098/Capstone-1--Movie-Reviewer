@@ -1,8 +1,8 @@
-from wtforms import StringField, PasswordField, TextAreaField
+from wtforms import StringField, PasswordField, TextAreaField, SelectField
 from wtforms.validators import InputRequired, Length, Email, DataRequired
 from flask_wtf import FlaskForm
 
-class Ratings(FlaskForm):
+class Rating(FlaskForm):
     """Form for adding/editing messages."""
 
     rating = TextAreaField('text', validators=[DataRequired()])
@@ -29,3 +29,20 @@ class RegisterForm(FlaskForm):
         "Email",
         validators=[InputRequired(), Email(), Length(max=50)],
     )
+
+class UserList(FlaskForm):
+    """FORM FOR MAKING MOVIE PLAYLISTS"""
+
+    title = StringField(
+        "Movie List Name",
+        validators=[InputRequired()]
+    )
+    description = StringField(
+        "Description",
+        validators=[InputRequired()]
+    )
+
+class NewMovieForUserList(FlaskForm):
+    """Form for adding a song to playlist."""
+
+    movie = SelectField('Movie To Add', coerce=int)

@@ -63,7 +63,7 @@ class Movie(db.Model):
     year = db.Column(db.Integer, nullable = False)
     genre = db.Column(db.Text, nullable=False)
 
-class Ratings(db.Model):
+class Rating(db.Model):
     """MOVIES RATINGS"""
     __tablename__ = "ratings"
     

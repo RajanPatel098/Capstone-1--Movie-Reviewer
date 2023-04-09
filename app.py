@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, jsonify, session, g, flash, request
-from models import db, connect_db, User, Ratings
-from forms import LoginForm, RegisterForm
+from models import db, connect_db, User, Rating
+from forms import LoginForm, RegisterForm, Rating
 from sqlalchemy.exc import IntegrityError
 import requests
 from bs4 import BeautifulSoup
@@ -108,6 +108,69 @@ def login():
         flash("Invalid credentials.", 'danger')
 
     return render_template('users/login.html', form=form)
+
+@app.route('/users/<int:user_id>')
+def users_show(user_id):
+    """Show user profile."""
+
+    user = User.query.get_or_404(user_id)
+
+    # snagging messages in order from the database;
+    # user.messages won't be in order by default
+    ratings = (Rating
+                .query
+                .filter(ratings.user_id == user_id)
+                .order_by(ratings.timestamp.desc())
+                .limit(100)
+                .all())
+    return render_template('users/show.html', user=user, ratings=ratings)
+
+## RATINGS ROUTES
+@app.route('/ratings/new', methods=["GET", "POST"])
+def ratings_add():
+    """Add a rating:
+
+    Show form if GET. If valid, update rating and redirect to user page.
+    """
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    form = Rating()
+
+    if form.validate_on_submit():
+        rtg = Rating(text=form.text.data)
+        g.user.ratings.append(rtg)
+        db.session.commit()
+
+        return redirect(f"/users/{g.user.id}")
+
+    return render_template('ratings/new.html', form=form)
+
+
+@app.route('/ratings/<int:rating_id>', methods=["GET"])
+def ratings_show(rating_id):
+    """Show a rating."""
+
+    rtg = Rating.query.get(rating_id)
+    return render_template('ratings/show.html', rating= rtg)
+
+
+@app.route('/ratings/<int:rating_id>/delete', methods=["POST"])
+def ratings_destroy(rating_id):
+    """Delete a rating."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    rtg = Rating.query.get(rating_id)
+    db.session.delete(rtg)
+    db.session.commit()
+
+    return redirect(f"/users/{g.user.id}")
+
 
 
 @app.route('/logout')

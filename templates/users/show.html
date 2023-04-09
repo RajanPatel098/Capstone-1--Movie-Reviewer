@@ -1,0 +1,37 @@
+{% extends 'users/detail.html' %}
+{% block user_details %}
+  <div class="col-sm-6">
+    <ul class="list-group" id="ratings">
+
+      {% for rating in ratings %}
+
+        <li class="list-group-item">
+          <a href="/ratings/{{ rating.id }}" class="rating-link"/>
+
+          <a href="/users/{{ user.id }}">
+            <img src="{{ user.image_url }}" alt="user image" class="timeline-image">
+          </a>
+
+          <div class="rating-area">
+            <a href="/users/{{ user.id }}">@{{ user.username }}</a>
+            <span class="text-muted">{{ rating.timestamp.strftime('%d %B %Y') }}</span>
+            <p>{{ rating.text }}</p>
+          </div>
+          {% if g.user.id != rating.user_id %}
+          <form method="POST" action="/ratings/{{ rating.id }}/like" class="ratings-like">
+            <button class="
+              btn
+              btn-sm
+              {{'btn-primary' if rating.id in likes else 'btn-secondary'}}"
+            >
+              <i class="fa fa-thumbs-up"></i>
+            </button>
+          </form>
+          {% endif %}
+        </li>
+
+      {% endfor %}
+
+    </ul>
+  </div>
+{% endblock %}

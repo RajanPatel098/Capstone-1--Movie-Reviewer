@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="bg"></div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <ul class="list-group no-hover" id="ratings">
+        <li class="list-group-item">
+          <a href="{{ url_for('users_show', user_id=rating.user.id) }}">
+            <img src="{{ rating.user.image_url }}" alt="" class="timeline-image">
+          </a>
+          <div class="rating-area">
+            <div class="rating-heading">
+              <a href="/users/{{ rating.user.id }}">@{{ rating.user.username }}</a>
+              {% if g.user %}
+                {% if g.user.id == rating.user.id %}
+                  <form method="POST"
+                        action="/ratings/{{ rating.id }}/delete">
+                    <button class="btn btn-outline-danger">Delete</button>
+                  </form>
+                {% elif g.user.is_following(rating.user) %}
+                  <form method="POST"
+                        action="/users/stop-following/{{ rating.user.id }}">
+                    <button class="btn btn-primary">Unfollow</button>
+                  </form>
+                {% else %}
+                  <form method="POST" action="/users/follow/{{ rating.user.id }}">
+                    <button class="btn btn-outline-primary btn-sm">Follow</button>
+                  </form>
+                {% endif %}
+              {% endif %}
+            </div>
+            <p class="single-rating">{{ rating.text }}</p>
+            <span class="text-muted">{{ rating.timestamp.strftime('%d %B %Y') }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}
