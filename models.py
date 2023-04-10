@@ -21,7 +21,7 @@ class User(db.Model):
     )
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.String(50), nullable=False)
-
+    ratings = db.relationship('Rating')
 
     @classmethod
     def signup(cls, username, email, password):
@@ -68,10 +68,10 @@ class Rating(db.Model):
     __tablename__ = "ratings"
     
     id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    text = db.Column(db.String(400), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"), nullable=False)
     movies_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
-    
+    user = db.relationship('User')
 
 class userList(db.Model):
     """USERS FAVORITE MOVIES LIST"""

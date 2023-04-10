@@ -2,10 +2,10 @@ from wtforms import StringField, PasswordField, TextAreaField, SelectField
 from wtforms.validators import InputRequired, Length, Email, DataRequired
 from flask_wtf import FlaskForm
 
-class Rating(FlaskForm):
+class RatingForm(FlaskForm):
     """Form for adding/editing messages."""
 
-    rating = TextAreaField('text', validators=[DataRequired()])
+    text = TextAreaField('text', validators=[DataRequired()])
 
 class LoginForm(FlaskForm):
     """Login form."""

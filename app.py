@@ -1,22 +1,26 @@
-from flask import Flask, redirect, render_template, jsonify, session, g, flash, request
-from models import db, connect_db, User, Rating
-from forms import LoginForm, RegisterForm, Rating
-from sqlalchemy.exc import IntegrityError
+import os 
 import requests
 from bs4 import BeautifulSoup
+from flask import Flask, redirect, render_template, jsonify, session, g, flash, request
+from models import db, connect_db, User, Rating
+from forms import LoginForm, RegisterForm, RatingForm
+from sqlalchemy.exc import IntegrityError
+
 
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 app.app_context().push()
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone'
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL', 'postgresql:///capstone'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
 connect_db(app)
 db.create_all()
 
-app.config['SECRET_KEY'] = "rpatMovies"
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "rpatMovies")
 ### omdbapi.com/?t=[title]&y=[year]&apikey=78ff9c4d
 
 API_KEY= "78ff9c4d"
@@ -109,21 +113,6 @@ def login():
 
     return render_template('users/login.html', form=form)
 
-@app.route('/users/<int:user_id>')
-def users_show(user_id):
-    """Show user profile."""
-
-    user = User.query.get_or_404(user_id)
-
-    # snagging messages in order from the database;
-    # user.messages won't be in order by default
-    ratings = (Rating
-                .query
-                .filter(ratings.user_id == user_id)
-                .order_by(ratings.timestamp.desc())
-                .limit(100)
-                .all())
-    return render_template('users/show.html', user=user, ratings=ratings)
 
 ## RATINGS ROUTES
 @app.route('/ratings/new', methods=["GET", "POST"])
@@ -137,14 +126,14 @@ def ratings_add():
         flash("Access unauthorized.", "danger")
         return redirect("/")
 
-    form = Rating()
+    form = RatingForm()
 
     if form.validate_on_submit():
         rtg = Rating(text=form.text.data)
         g.user.ratings.append(rtg)
         db.session.commit()
 
-        return redirect(f"/users/{g.user.id}")
+        return redirect(f"/ratings/show")
 
     return render_template('ratings/new.html', form=form)
 
@@ -170,6 +159,8 @@ def ratings_destroy(rating_id):
     db.session.commit()
 
     return redirect(f"/users/{g.user.id}")
+
+
 
 
 
