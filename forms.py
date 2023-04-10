@@ -29,6 +29,7 @@ class RegisterForm(FlaskForm):
         "Email",
         validators=[InputRequired(), Email(), Length(max=50)],
     )
+    image_url = StringField('(Optional) Image URL')
 
 class UserList(FlaskForm):
     """FORM FOR MAKING MOVIE PLAYLISTS"""

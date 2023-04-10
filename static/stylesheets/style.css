@@ -1,11 +1,11 @@
 /* ====================== General */
 
 body {
-    background-color: #1c412a;
+    background-color: #00ABE4;
   }
   
   body.error-404 {
-    background-color: #1da1f2;
+    background-color: #E9F1FA;
   }
   
   .form-control {
@@ -23,7 +23,7 @@ body {
   /* ======================= Nav */
   
   .navbar {
-    background-color: #e9c0c0;
+    background-color: #E9F1FA;
     height: 46px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     margin-bottom: 1rem;
@@ -50,13 +50,13 @@ body {
     display: inline-block;
     margin-bottom: 2px;
     margin-right: 5px;
-    width: 30px;
+    width: 40px;
     border-radius: 2px;
   }
   
   .nav > li > a > img {
-    width: 32px;
-    border-radius: 32px;
+    width: 40px;
+    border-radius: 40px;
   }
   
   ul.nav.navbar-nav {
@@ -154,7 +154,7 @@ body {
   
   /* ===================== User profile */
   
-  .join-message {
+  .join-rating {
     margin-top: 100px;
   }
   
@@ -176,8 +176,8 @@ body {
 
   }
   #profile-avatar {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     border: 5px solid #fff;
     margin-top: -120px;
     z-index: 1;
@@ -192,12 +192,12 @@ body {
     margin-top: 2px;
   }
   
-  .message-area,
+  .rating-area,
   .timeline-image {
     display: inline-block;
   }
   
-  .message-area {
+  .rating-area {
     margin-left: 10px;
   }
   
@@ -260,11 +260,11 @@ body {
     padding-top: 3px;
   }
   
-  #messages {
+  #ratings {
     position: relative;
   }
   
-  #messages .message-link {
+  #ratings .rating-link {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -273,27 +273,27 @@ body {
     z-index: 1;
   }
   
-  #messages .list-group-item a:not(.message-link) {
+  #ratings .list-group-item a:not(.rating-link) {
     position: relative;
     z-index: 2;
   }
   
-  #messages .list-group-item {
+  #ratings .list-group-item {
     display: flex;
     align-items: flex-start;
     padding: 7px 20px 12px;
   }
   
-  #messages:not(.no-hover) .list-group-item:hover {
+  #ratings:not(.no-hover) .list-group-item:hover {
     background-color: #e6ecf0;
   }
   
   #sidebar-username {
     margin-top: 30px;
     font-size: 21px;
-    font-weight: bold;
     line-height: 28px;
     word-wrap: break-word;
+    text-align: center;
   }
   
   @media (max-width: 768px) {
@@ -476,18 +476,7 @@ body {
     padding: 12px;
   }
   
-  /* =========================== Edit Page */
-  
-  .edit-btn-area {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .edit-btn-area > .btn {
-    width: 48%;
-  }
-  
-  /* =========================== Message Show page */
+  /* =========================== rating Show page */
   
   .bg {
     position: absolute;
@@ -498,29 +487,29 @@ body {
     background-color: #62676c;
   }
   
-  #messages.no-hover .message-area {
+  #ratings.no-hover .rating-area {
     width: 100%;
   }
   
-  #messages.no-hover .message-heading {
+  #ratings.no-hover .rating-heading {
     display: flex;
     justify-content: space-between;
     height: 47px;
     margin-top: 3px;
   }
   
-  #messages.no-hover .message-heading .btn {
+  #ratings.no-hover .rating-heading .btn {
     min-width: 105px;
   }
   
-  #messages-form {
+  #ratings-form {
     position: absolute;
     top: 4px;
     right: 4px;
     z-index: 1;
   }
   
-  .single-message {
+  .single-rating {
     font-size: 27px;
     line-height: 32px;
     letter-spacing: 0.01em;
@@ -529,21 +518,21 @@ body {
   
   /* ================================ 404 page */
   
-  .message-404 {
+  .rating-404 {
     color: white;
     margin-top: 2em;
     text-align: center;
   }
   
-  .message-404 a {
+  .rating-404 a {
     color: white;
   }
   
-  .message-404 > h4.display-4 {
+  .rating-404 > h4.display-4 {
     font-size: 2.5em;
   }
   
-  .message-404 .form-inline input {
+  .rating-404 .form-inline input {
     flex: 1;
   }
   
@@ -551,8 +540,8 @@ body {
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-    --md-dark-color: #1d1d1d;
-    --dark-color: #171717;
+    --md-dark-color: #061c35;
+    --dark-color: #061c35;
     --light-dark-color: #292929;
     --yellow-color: #d4aa11;
 }

@@ -19,20 +19,10 @@
                         action="/ratings/{{ rating.id }}/delete">
                     <button class="btn btn-outline-danger">Delete</button>
                   </form>
-                {% elif g.user.is_following(rating.user) %}
-                  <form method="POST"
-                        action="/users/stop-following/{{ rating.user.id }}">
-                    <button class="btn btn-primary">Unfollow</button>
-                  </form>
-                {% else %}
-                  <form method="POST" action="/users/follow/{{ rating.user.id }}">
-                    <button class="btn btn-outline-primary btn-sm">Follow</button>
-                  </form>
-                {% endif %}
+              {% endif %}
               {% endif %}
             </div>
-            <p class="single-rating">{{ rating.text }}</p>
-            <span class="text-muted">{{ rating.timestamp.strftime('%d %B %Y') }}</span>
+            <p class="single-message">{{ rating.text }}</p>
           </div>
         </li>
       </ul>

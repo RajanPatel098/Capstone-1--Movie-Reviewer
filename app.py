@@ -34,6 +34,8 @@ def index():
 
     return render_template("base.html")
 
+### User Sign up/login/ logout
+
 @app.before_request
 def add_user_to_g():
     """If we're logged in, add curr user to Flask global."""
@@ -78,7 +80,7 @@ def signup():
                 username=form.username.data,
                 password=form.password.data,
                 email=form.email.data,
-
+                image_url=form.image_url.data or User.image_url.default.arg,
             )
             db.session.commit()
 
@@ -113,6 +115,64 @@ def login():
 
     return render_template('users/login.html', form=form)
 
+@app.route('/logout')
+def logout():
+    """Handle logout of user."""
+
+    do_logout()
+
+    flash("YOU JAVE LOGGED OUT.", 'success')
+    return redirect("/login")
+
+### GENERAL USER ROUTES
+
+@app.route('/users')
+def list_users():
+    """Page with listing of users.
+
+    Can take a 'q' param in querystring to search by that username.
+    """
+
+    search = request.args.get('q')
+
+    if not search:
+        users = User.query.all()
+    else:
+        users = User.query.filter(User.username.like(f"%{search}%")).all()
+
+    return render_template('users/index.html', users=users)
+
+
+@app.route('/users/<int:user_id>')
+def users_show(user_id):
+    """Show user profile."""
+
+    user = User.query.get_or_404(user_id)
+
+    # snagging ratings in order from the database;
+    # user.ratings won't be in order by default
+    ratings = (Rating
+                .query
+                .filter(Rating.user_id == user_id)
+                .limit(100)
+                .all())
+    return render_template('users/show.html', user=user, ratings=ratings)
+
+@app.route('/users/delete', methods=["POST"])
+def delete_user():
+    """Delete user."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    do_logout()
+
+    db.session.delete(g.user)
+    db.session.commit()
+
+    return redirect("/signup")
+
 
 ## RATINGS ROUTES
 @app.route('/ratings/new', methods=["GET", "POST"])
@@ -133,7 +193,7 @@ def ratings_add():
         g.user.ratings.append(rtg)
         db.session.commit()
 
-        return redirect(f"/ratings/show")
+        return redirect(f"/users/{g.user.id}")
 
     return render_template('ratings/new.html', form=form)
 
@@ -164,11 +224,3 @@ def ratings_destroy(rating_id):
 
 
 
-@app.route('/logout')
-def logout():
-    """Handle logout of user."""
-
-    do_logout()
-
-    flash("YOU JAVE LOGGED OUT.", 'success')
-    return redirect("/login")

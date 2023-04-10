@@ -21,10 +21,14 @@ class User(db.Model):
     )
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.String(50), nullable=False)
+    image_url = db.Column(
+        db.Text,
+        default="/static/images/default-pic.png",
+    )
     ratings = db.relationship('Rating')
 
     @classmethod
-    def signup(cls, username, email, password):
+    def signup(cls, username, email, password, image_url):
         """Sign up user.
 
         Hashes password and adds user to system.
@@ -36,6 +40,7 @@ class User(db.Model):
             username=username,
             email=email,
             password=hashed_pwd,
+            image_url = image_url,
         )
 
         db.session.add(user)
