@@ -5,6 +5,7 @@ from flask import Flask, redirect, render_template, jsonify, session, g, flash, 
 from models import db, connect_db, User, Rating
 from forms import LoginForm, RegisterForm, RatingForm
 from sqlalchemy.exc import IntegrityError
+from secrets import API_SECRET_KEY, DB_SECRET_KEY
 
 
 CURR_USER_KEY = "curr_user"
@@ -20,11 +21,11 @@ app.config['SQLALCHEMY_ECHO'] = True
 connect_db(app)
 db.create_all()
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "rpatMovies")
-### omdbapi.com/?t=[title]&y=[year]&apikey=78ff9c4d
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', DB_SECRET_KEY)
+### omdbapi.com/?t=[title]&y=[year]&apikey=xxxxxx
 
-API_KEY= "78ff9c4d"
-# movie = GetMovie(api_key='78ff9c4d')  -> gives all info using omdbapi 
+API_KEY= API_SECRET_KEY
+# movie = GetMovie(api_key)  -> gives all info using omdbapi 
 
 @app.route('/',methods=["POST","GET"])
 def index():
