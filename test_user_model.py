@@ -31,7 +31,7 @@ db.create_all()
 
 
 class UserModelTestCase(TestCase):
-    """Test views for messages."""
+    """Test views for Rating."""
 
     def setUp(self):
         """Create test client, add sample data."""
