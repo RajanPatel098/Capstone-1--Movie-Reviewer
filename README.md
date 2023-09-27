@@ -42,3 +42,7 @@ __ 2) Unpack anywhere easily accesible by your WSL/Ubuntu client
    3) Create a virtual env using 'python3 -m venv venv' then enter the virtual environment by doing 'source venv/bin/activate'
    4) Install all necessary repositories using python3 (flask, bcrypt, sqlalchemy, etc)
    5)  Run 'flask run'  and the site will exist on localhost:5000
+
+## How To Run Tests:
+   1)  Access the virtual env by doing 'source venv/bin/activate'
+   2) Run python -m unittest test_user_model.py
