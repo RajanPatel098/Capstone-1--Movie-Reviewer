@@ -34,3 +34,11 @@ Authenticated Users (logged in users) will be able to leave a comment and record
 User logs on and is able to see all their previous reviews.
 
 User can search for a movie on homepage
+
+## How to Run:
+__ 1) Download the .zip of this repository
+__ 2) Unpack anywhere easily accesible by your WSL/Ubuntu client
+   3)  Start your postgresql server and load the database by running models.py
+   3) Create a virtual env using 'python3 -m venv venv' then enter the virtual environment by doing 'source venv/bin/activate'
+   4) Install all necessary repositories using python3 (flask, bcrypt, sqlalchemy, etc)
+   5)  Run 'flask run'  and the site will exist on localhost:5000
